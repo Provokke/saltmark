@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift File.expand_path("../lib", __dir__)
+require "saltmark"
+
+if ARGV.include?("-h") || ARGV.include?("--help")
+  puts "usage: saltmark [FILE...]"
+  puts "Reads Markdown from the given files, or standard input, and writes HTML to standard output."
+  exit
+end
+
+if ARGV.include?("-v") || ARGV.include?("--version")
+  puts Saltmark::VERSION
+  exit
+end
+
+begin
+  input = ARGV.empty? ? $stdin.read : ARGV.map { |path| File.read(path) }.join("\n")
+rescue SystemCallError => e
+  warn "saltmark: #{e.message}"
+  exit 1
+end
+
+puts Saltmark.convert(input)
