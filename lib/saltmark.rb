@@ -7,4 +7,3 @@ module Saltmark
     Converter.new(text).call
   end
 end
-

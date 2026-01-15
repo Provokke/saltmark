@@ -72,4 +72,3 @@ module Saltmark
     end
   end
 end
-
